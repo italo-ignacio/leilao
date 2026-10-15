@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "source": "MANUAL_USER_COPY",
+  "persistenceStatus": "IMPORTED",
+  "auctions": [
+    {
+      "officialNumber": "0800100/000014/2026",
+      "agency": "Receita Federal do Brasil",
+      "unit": "SUPERINTENDÊNCIA REGIONAL DA RECEITA FEDERAL DO BRASIL DA 8ª REGIÃO FISCAL",
+      "officialUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/portal/edital/800100/14/2026",
+      "sourceStatus": "Disponibilizado",
+      "noticeDocumentUrl": null,
+      "lots": [
+        {
+          "number": 31,
+          "title": "Lote 31 - Informática",
+          "category": "INFORMÁTICA",
+          "sourceStatus": "Disponibilizado",
+          "minimumBid": "2069.00",
+          "appraisalValue": null,
+          "currency": "BRL",
+          "officialUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/portal/edital/800100/14/2026/lote/31",
+          "sourceParticipationIconUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/assets/icone-edital-pj.png",
+          "state": "SP",
+          "city": "Bauru",
+          "storageFacility": "DMA - Bauru/SP",
+          "pickupAddress": null,
+          "images": [],
+          "items": [
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "PLACA MAE ASUS PRIME B760M-KD4 CHINA"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "PLACA MAE ASUS B550M-PLUS CHINA"
+            },
+            {
+              "quantity": 4,
+              "unit": "un",
+              "description": "HD EXTERNO WESTERN DIGITAL 4TB WD43PURZ TAILANDIA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "GABINETE BEQUIETI GAMER LIGHT BASE 600 LX CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "PLACA MAE ASUS B650 AMD CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "PLACA MAE GIGABYTE A520 MKV2 CHINA"
+            },
+            {
+              "quantity": 4,
+              "unit": "un",
+              "description": "PLACA MAE GIGABYTE LGA-1700 ORIGEM NAO IDENTIFICADA"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "MEMORIA RAM PARA COMPUTADOR KINGSTON DDR4, 16 GB TAIWAN"
+            },
+            {
+              "quantity": 15,
+              "unit": "un",
+              "description": "MEMORIA RAM PARA COMPUTADOR PATRIOT DDR4 SO-DIMM 8GB TAIWAN"
+            },
+            {
+              "quantity": 10,
+              "unit": "un",
+              "description": "MEMORIA RAM PARA COMPUTADOR KINGSTON KVR32N22S8L/8 TAIWAN"
+            },
+            {
+              "quantity": 3,
+              "unit": "un",
+              "description": "MEMORIA RAM PARA COMPUTADOR MACROVIP MV32N22/8 8GB CHINA"
+            },
+            {
+              "quantity": 3,
+              "unit": "un",
+              "description": "MEMORIA RAM PARA COMPUTADOR MACROVIP DDR4 16GB CHINA"
+            },
+            {
+              "quantity": 4,
+              "unit": "un",
+              "description": "PLACA DE VIDEO GOLINE R5 230-GRAPHIC CHINA"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "PLACA DE REDE TP-LINK ARCHER T4E AC1200 CHINA"
+            }
+          ]
+        },
+        {
+          "number": 59,
+          "title": "Lote 59 - Videogame",
+          "category": "VIDEOGAME",
+          "sourceStatus": "Disponibilizado",
+          "minimumBid": "824.00",
+          "appraisalValue": null,
+          "currency": "BRL",
+          "officialUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/portal/edital/800100/14/2026/lote/59",
+          "sourceParticipationIconUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/assets/icone-edital-pj.png",
+          "state": "SP",
+          "city": "Bauru",
+          "storageFacility": "DMA - Bauru/SP",
+          "pickupAddress": null,
+          "images": [],
+          "items": [
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "VIDEO GAME NINTENDO SWITCH 2 ORIGEM NAO IDENTIFICADA"
+            }
+          ]
+        },
+        {
+          "number": 60,
+          "title": "Lote 60 - Videogame",
+          "category": "VIDEOGAME",
+          "sourceStatus": "Disponibilizado",
+          "minimumBid": "1379.00",
+          "appraisalValue": null,
+          "currency": "BRL",
+          "officialUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/portal/edital/800100/14/2026/lote/60",
+          "sourceParticipationIconUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/assets/icone-edital-pj.png",
+          "state": "SP",
+          "city": "Bauru",
+          "storageFacility": "DMA - Bauru/SP",
+          "pickupAddress": null,
+          "images": [],
+          "items": [
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "OCULOS 3D META QUEST 3S 256GB CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS 3D META QUEST 3S 128GB CHINA"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "MINIGAME BLULORY 2.4G COM 2 CONTROLES CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS 3D META QUEST 3, 512GB VIETNAN"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS DE REALIDADE VIRTUAL META QUEST 3S 128GB CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME NINTENDO , NINTENDO SWITCH 2 PORTATIL ORIGEM NAO IDENTIFIFICA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME 8BITDO CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME T4 PRO CHINA"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "officialNumber": "1000100/000005/2026",
+      "agency": "Receita Federal do Brasil",
+      "unit": "SUPERINTENDÊNCIA REGIONAL DA RECEITA FEDERAL DO BRASIL DA 10ª REGIÃO FISCAL",
+      "officialUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/portal/edital/1000100/5/2026",
+      "sourceStatus": "Disponibilizado",
+      "noticeDocumentUrl": null,
+      "lots": [
+        {
+          "number": 10,
+          "title": "Lote 10 - Videogame",
+          "category": "VIDEOGAME",
+          "sourceStatus": "Disponibilizado",
+          "minimumBid": "5700.00",
+          "appraisalValue": null,
+          "currency": "BRL",
+          "officialUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/portal/edital/1000100/5/2026/lote/10",
+          "sourceParticipationIconUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/assets/icone-edital-pj.png",
+          "state": "RS",
+          "city": "São Leopoldo",
+          "storageFacility": "São Leopoldo",
+          "pickupAddress": null,
+          "images": [],
+          "items": [
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME NINTENDO SWITCH LITE ORIGEM CAMBODIA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME SONY PS5 825GB CFI-2115 ORIGEM CHINA NS S01V55601UNL10354251"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME SONY PS5 825GB CFI-2115 ORIGEM CHINA NS S01V55601UNL10361377"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME SONY PS5 825GB CFI-2115 ORIGEM CHINA NS S01V55601UNL10351710"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME SONY PS5 825GB CFI-2115 ORIGEM CHINA NS S01V55701UNL10740967"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME SONY PS5 825GB CFI-2115 ORIGEM CHINA NS S01V55701UNL10770038"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VOLANTE PARA VIDEO GAME LOGITECH G29 2532ZMQ08P69"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME NINTENDO JOY-CON PAIR PARA NINTENDO SWITCH"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME NINTENDO POWER A POKEMON PARA NINTENDO SWITCH"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME NINTENDO POWER A SUPER MARIO PARA NINTENDO SWITCH"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VOLANTE PARA VIDEO GAME LOGITECH TRUEFORCE G923 2413LZG07F89"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "RECEPTOR DE SATELITE STARLINK UTA-231 INTERNET; SN KIT4M00369483Y7B"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS DE REALIDADE VIRTUAL META QUEST 3S 340YBMMGCB03L0"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VOLANTE PARA VIDEO GAME LOGITECH G29 KIT COM PEDAIS; SN 2517ZMP08149"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS DE REALIDADE VIRTUAL META QUEST 3S 128GB 340YB0FGBY07H0"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME MICROSOFT X CARBON BLACK"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME MICROSOFT XBOX WIRELESS MODELO 1914 SN 09700137063430"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME NINTENDO SWITCH 2 SN HAE70520208392"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VOLANTE PARA VIDEO GAME LOGITECH G29 DRIVING FORCE 2425LZG0BTF9"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS DE REALIDADE VIRTUAL META QUEST 3S 128 GB; ARKHAM SHADOWS; SN 340YB01GB703HT"
+            }
+          ]
+        },
+        {
+          "number": 47,
+          "title": "Lote 47 - Videogame",
+          "category": "VIDEOGAME",
+          "sourceStatus": "Disponibilizado",
+          "minimumBid": "950.00",
+          "appraisalValue": null,
+          "currency": "BRL",
+          "officialUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/portal/edital/1000100/5/2026/lote/47",
+          "sourceParticipationIconUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/assets/icone-edital-misto.png",
+          "state": "RS",
+          "city": "Santo Ângelo",
+          "storageFacility": "DMA SANTO ÂNGELO",
+          "pickupAddress": null,
+          "images": [],
+          "items": [
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CAPACETE AUTO KING HOMEM DE FERRO MARK V - PRETO ORIGEM CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME SONY PS5 1TB EDICAO DIGITAL ORIGEM/PROCED ESTRANGEIRA"
+            }
+          ]
+        },
+        {
+          "number": 48,
+          "title": "Lote 48 - Videogame",
+          "category": "VIDEOGAME",
+          "sourceStatus": "Disponibilizado",
+          "minimumBid": "970.00",
+          "appraisalValue": null,
+          "currency": "BRL",
+          "officialUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/portal/edital/1000100/5/2026/lote/48",
+          "sourceParticipationIconUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/assets/icone-edital-misto.png",
+          "state": "RS",
+          "city": "Santo Ângelo",
+          "storageFacility": "DMA SANTO ÂNGELO",
+          "pickupAddress": null,
+          "images": [],
+          "items": [
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CAPACETE AUTO KING HOMEM DE FERRO MARK V - VERMELHO ORIGEM CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME PLAY 5 1TB ORIGEM ESTRANGEIRA"
+            }
+          ]
+        },
+        {
+          "number": 59,
+          "title": "Lote 59 - Videogame",
+          "category": "VIDEOGAME",
+          "sourceStatus": "Disponibilizado",
+          "minimumBid": "9800.00",
+          "appraisalValue": null,
+          "currency": "BRL",
+          "officialUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/portal/edital/1000100/5/2026/lote/59",
+          "sourceParticipationIconUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/assets/icone-edital-pj.png",
+          "state": "RS",
+          "city": "Santa Maria",
+          "storageFacility": "Depósito Santa Maria",
+          "pickupAddress": null,
+          "images": [],
+          "items": [
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "JOYSTICK PARA VIDEO GAME MICROSOFT XBOX 1914"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CABO HDMI PARA CONSOLE PLAY STATION 5"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CABO DE FORCA P/PS5"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "JOYSTICK PARA COMPUTADOR ACER NITRO NGR200"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONTROLE DE CELULAR MOBILE GAME CONTROLLER SP+"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS DE REALIDADE VIRTUAL OCULUS QUEST 2"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONSOLE PARA VIDEOGAME SONY PLAY STATION 5 DIGITAL EDITION 1TB CFI-2015 (PROCED. ESTRANGEIRA)"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONSOLE PARA VIDEOGAME SONY PLAY STATION 5 DIGITAL EDITION 825GB CFI-2015 (PROCED. ESTRANGEIRA)"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "CONSOLE PARA VIDEOGAME SONY PLAY STATION 5 PRO 2TB - CFI-7019 (PROCED. ESTRANGEIRA)"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "CONSOLE PARA VIDEOGAME SONY PS5 PRO 2TB CFI-7019 (PROCED. ESTRANGEIRA)"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONSOLE PARA VIDEOGAME SONY PLAY STATION 5 C/ LEITOR DE MIDIA 1TB CFI-2115 (PROCED. ESTRANGEIRA)"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONSOLE PARA VIDEOGAME SONY PLAY STATION 5 DIGITAL EDITION 825GB CFI-2115 (PROCED. ESTRANGEIRA)"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "CONSOLE PARA VIDEOGAME SONY PS5 PRO 2TB CFI-7019 (PROCED. ESTRANGEIRA)"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONSOLE PARA VIDEOGAME SONY PLAY STATION 5 DIGITAL EDITION 825GB CFI-2115 (PROCED. ESTRANGEIRA)"
+            }
+          ]
+        },
+        {
+          "number": 83,
+          "title": "Lote 83 - Videogame",
+          "category": "VIDEOGAME",
+          "sourceStatus": "Disponibilizado",
+          "minimumBid": "7600.00",
+          "appraisalValue": null,
+          "currency": "BRL",
+          "officialUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/portal/edital/1000100/5/2026/lote/83",
+          "sourceParticipationIconUrl": "https://www25.receita.fazenda.gov.br/sle-sociedade/assets/icone-edital-pj.png",
+          "state": "RS",
+          "city": "Pelotas",
+          "storageFacility": "DMA Pelotas",
+          "pickupAddress": null,
+          "images": [],
+          "items": [
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME VALVE STEAM DECK 1TB FABRICADO NA CHINA, S/N: AFYZZ51900CCA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "DRONE RADIOCONTROLADO DJI MINI 3 ULTRA LIGHT 249G FABRICADO NA CHINA, S/N: 1581F5YHX257U002TLCB"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME NACON REVOLUTION 5 PRO FABRICADO NA CHINA, P/N: 50-1727-01/NC4533"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME NINTENDO SWITCH LITE YELLOW FABRICADO NA CHINA, S/N: XJJ10032031118"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "JOYSTICK PARA VIDEO GAME KAPBOM KAP-360W CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS 3D OCULUS META QUEST 3 128GB FABRICADO NA CHINA, S/N: 3487B0FGBT01K3"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS 3D META QUEST 3S 128GB FABRICADO NA CHINA, S/N: 3497BMMHBT0037"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME NINTENDO SWITCH 2 FABRICADO NO JAPAO, S/N: HAE70752939521"
+            },
+            {
+              "quantity": 2,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME SONY PS4"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "UBI COLLECTIBLES EZIO LEAP OF FAITH 39CM ORIGEM A DESIGNAR - FIGURINO COLECION[AVEL"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "VIDEO GAME LIU JIAQU 7.5 16GB A DESIGNAR"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS DE REALIDADE VIRTUAL VR BOX MOD A1928 ORIGEM: CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS 3D META QUEST 3S 128GB FABRICADO NO VIETNA, S/N BUNDLE: 3497BMMHB60137, S/N HEADSET: 3497C10HB405RR"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME SONY PS5 SEM FIO CFI-ZCT2W AZUL MALASIA, 711719021636"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "LOCALIZADOR DE SATELITE SATLINK DVB-S2 WS-6933 ORIGEM A DESIGNAR"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "CONTROLE DE VIDEO GAME QRD SPARK N5 WIRELESS CONTROLLER CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS 3D META QUEST 3S 128GB FABRICADO NA CHINA, S/N: 340YB0FGBV0CSD"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "OCULOS 3D META QUEST 3 4K 512GB ORIGEM VIETNA; SN: 2G97BMMJ1802LV"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "DRONE RADIOCONTROLADO DJI NEO 2 (SOMENTE O DRONE) ORIGEM CHINA; SN 1581FA6QC25AR00CWCUE"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "DRONE RADIOCONTROLADO GT DRONE GT8, DS14568 CHINA"
+            },
+            {
+              "quantity": 1,
+              "unit": "un",
+              "description": "DRONE RADIOCONTROLADO DJI MINI 3 ULTRA LIGHT 249G ORIGEM CHINA; S/N 1581F5YHX258D002U78K"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
