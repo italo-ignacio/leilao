@@ -13,7 +13,10 @@ COPY prisma.config.ts ./prisma.config.ts
 RUN npm ci
 
 COPY . .
-RUN npm run build
+RUN DATABASE_URL=postgresql://build:build@127.0.0.1:5432/build \
+  AUTH_URL=https://build.invalid \
+  AUTH_SECRET="$(node -e "process.stdout.write(require('node:crypto').randomBytes(48).toString('base64url'))")" \
+  npm run build
 
 FROM node:24-bookworm-slim AS runner
 
