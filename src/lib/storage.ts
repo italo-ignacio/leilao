@@ -5,6 +5,7 @@ import {
   PutObjectCommand,
   DeleteObjectCommand,
   S3Client,
+  type S3ClientConfig,
 } from "@aws-sdk/client-s3";
 import { z } from "zod";
 
@@ -42,10 +43,12 @@ class S3ImageStorage implements ImageStorage {
     private readonly bucket: string,
     endpoint?: string,
     region = "auto",
+    credentials?: S3ClientConfig["credentials"],
   ) {
     this.client = new S3Client({
       region,
       endpoint,
+      credentials,
       forcePathStyle: Boolean(endpoint),
       requestHandler: { connectionTimeout: 10_000, requestTimeout: 20_000 },
     });
@@ -95,17 +98,52 @@ export function getImageStorage(): ImageStorage {
       );
     return new LocalImageStorage(join(process.cwd(), "storage", directory));
   }
-  if (driver === "s3") {
-    const bucket = process.env.STORAGE_S3_BUCKET;
+  if (driver === "s3" || driver === "minio") {
+    const minio = driver === "minio";
+    const bucket = minio
+      ? process.env.MINIO_BLOB_BUCKET
+      : process.env.STORAGE_S3_BUCKET;
     if (!bucket || !/^[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]$/.test(bucket))
-      throw new Error("Configure STORAGE_S3_BUCKET.");
-    const endpoint = process.env.STORAGE_S3_ENDPOINT || undefined;
-    if (endpoint && new URL(endpoint).protocol !== "https:")
-      throw new Error("O endpoint do storage deve usar HTTPS.");
+      throw new Error(
+        minio ? "Configure MINIO_BLOB_BUCKET." : "Configure STORAGE_S3_BUCKET.",
+      );
+    const endpoint = minio
+      ? process.env.MINIO_BLOB_PUBLIC_URL
+      : process.env.STORAGE_S3_ENDPOINT || undefined;
+    if (minio && !endpoint)
+      throw new Error("Configure MINIO_BLOB_PUBLIC_URL com o endpoint S3.");
+    if (endpoint) {
+      const parsed = z.url().safeParse(endpoint);
+      if (!parsed.success)
+        throw new Error("Configure uma URL válida para o endpoint do storage.");
+      const url = new URL(parsed.data);
+      if (
+        url.protocol !== "https:" ||
+        url.username ||
+        url.password ||
+        url.search ||
+        url.hash ||
+        url.pathname !== "/"
+      )
+        throw new Error(
+          "O endpoint deve usar HTTPS, sem caminho ou credenciais.",
+        );
+    }
+    let credentials: S3ClientConfig["credentials"];
+    if (minio) {
+      const accessKeyId = process.env.MINIO_BLOB_ACCESS_KEY;
+      const secretAccessKey = process.env.MINIO_BLOB_SECRET_KEY;
+      if (!accessKeyId || !secretAccessKey)
+        throw new Error(
+          "Configure MINIO_BLOB_ACCESS_KEY e MINIO_BLOB_SECRET_KEY.",
+        );
+      credentials = { accessKeyId, secretAccessKey };
+    }
     return new S3ImageStorage(
       bucket,
       endpoint,
-      process.env.STORAGE_S3_REGION ?? "auto",
+      process.env.STORAGE_S3_REGION ?? (minio ? "us-east-1" : "auto"),
+      credentials,
     );
   }
   throw new Error("Driver de storage inválido.");

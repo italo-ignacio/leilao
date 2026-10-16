@@ -257,6 +257,17 @@ sem adicionar chaves ao `.env.example`. Uploads aceitam JPEG, PNG e WebP, até 5
 por arquivo, 5 arquivos por envio e 20 imagens por lote. `sharp` valida o conteúdo,
 limita dimensões, reencoda para WebP e remove metadados. Fotos de rascunhos são
 privadas; as públicas exigem lote e edital publicados e categoria ativa.
+Para MinIO, configure `STORAGE_DRIVER=minio`, `MINIO_BLOB_BUCKET`,
+`MINIO_BLOB_ACCESS_KEY`, `MINIO_BLOB_SECRET_KEY` e `MINIO_BLOB_PUBLIC_URL` no
+ambiente de execucao. Apesar do nome, `MINIO_BLOB_PUBLIC_URL` deve ser o endpoint
+HTTPS da API S3 (ex.: `https://minio.exemplo.com`), sem bucket ou caminho do
+console. O cliente usa `forcePathStyle` e regiao `us-east-1` por padrao;
+`STORAGE_S3_REGION` permite sobrescrever a regiao. Mantenha o bucket privado e
+conceda a chave acesso de leitura, gravacao e exclusao dos objetos `lots/*`.
+As fotos continuam sendo servidas por `/api/images/`, com controle de publicacao.
+Trocar o driver nao migra fotos existentes: copie os arquivos do storage local
+para o bucket mantendo as chaves `lots/<uuid>.webp` antes da troca.
+
 Na edição do lote, também é possível importar uma imagem por URL HTTPS direta
 de sites públicos, incluindo links sem extensão. O servidor bloqueia endereços
 locais/privados inclusive na resolução DNS da conexão, não segue redirecionamentos,
