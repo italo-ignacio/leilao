@@ -1,5 +1,9 @@
 import { randomUUID } from "node:crypto";
 import { File } from "node:buffer";
+import { lookup } from "node:dns";
+import { isIP, type LookupFunction } from "node:net";
+import ipaddr from "ipaddr.js";
+import { Agent, fetch } from "undici";
 import sharp from "sharp";
 import { z } from "zod";
 import { Prisma, type PrismaClient } from "../generated/prisma/client";
@@ -10,11 +14,34 @@ export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 export const MAX_UPLOAD_BYTES = 20 * 1024 * 1024;
 export const MAX_LOT_IMAGES = 20;
 export const MAX_UPLOAD_FILES = 5;
-const publicLotImageUrlPattern =
-  /^\/sle-pro-publico\/arquivos\/images\/\d{4}\/\d+\/\d+\/[A-Za-z0-9_.-]+\.(?:jpe?g|png|webp)$/i;
 
 export class ImageUploadError extends Error {}
 export type UploadFile = Pick<File, "size" | "type" | "arrayBuffer">;
+
+function isPublicAddress(address: string): boolean {
+  return ipaddr.process(address).range() === "unicast";
+}
+
+export const lookupPublicImageAddress: LookupFunction = (
+  hostname,
+  options,
+  callback,
+) => {
+  lookup(hostname, { all: true }, (error, addresses) => {
+    if (error) return callback(error, "", 4);
+    if (
+      !addresses.length ||
+      addresses.some(({ address }) => !isPublicAddress(address))
+    )
+      return callback(new Error("Endereço de rede não permitido."), "", 4);
+    if (options.all) return callback(null, addresses);
+    const address = addresses.find(
+      (entry) => !options.family || entry.family === options.family,
+    );
+    if (!address) return callback(new Error("Endereço indisponível."), "", 4);
+    callback(null, address.address, address.family);
+  });
+};
 
 export const publicLotImageUrlSchema = z
   .string()
@@ -24,20 +51,21 @@ export const publicLotImageUrlSchema = z
   .refine((value) => {
     try {
       const url = new URL(value);
+      const hostname = url.hostname.replace(/^\[|\]$/g, "");
       return (
         url.protocol === "https:" &&
-        url.hostname === "storagegw.estaleiro.serpro.gov.br" &&
+        hostname !== "localhost" &&
+        !hostname.endsWith(".localhost") &&
+        (!isIP(hostname) || isPublicAddress(hostname)) &&
         !url.username &&
         !url.password &&
         !url.port &&
-        !url.search &&
-        !url.hash &&
-        publicLotImageUrlPattern.test(url.pathname)
+        !url.hash
       );
     } catch {
       return false;
     }
-  }, "Use o link direto de uma imagem pública do portal de leilões.");
+  }, "Use o link HTTPS direto de uma imagem em um site público.");
 
 export async function downloadPublicLotImage(
   value: string,
@@ -45,70 +73,104 @@ export async function downloadPublicLotImage(
   const parsed = publicLotImageUrlSchema.safeParse(value);
   if (!parsed.success)
     throw new ImageUploadError(
-      "Use o link direto de uma imagem pública do portal de leilões.",
+      "Use o link HTTPS direto de uma imagem em um site público.",
     );
 
   const url = new URL(parsed.data);
-  let response: Response;
+  const dispatcher = new Agent({
+    connect: {
+      lookup: lookupPublicImageAddress,
+    },
+  });
   try {
-    response = await fetch(url, {
-      headers: { accept: "image/jpeg,image/png,image/webp" },
-      redirect: "error",
-      signal: AbortSignal.timeout(10_000),
-    });
-  } catch {
-    throw new ImageUploadError("Não foi possível baixar a imagem desse link.");
-  }
-  if (!response.ok)
-    throw new ImageUploadError("O link da imagem não está disponível.");
-
-  const responseType = response.headers
-    .get("content-type")
-    ?.split(";")[0]
-    .trim()
-    .toLowerCase();
-  const extension = url.pathname.split(".").at(-1)?.toLowerCase();
-  const typeByExtension: Record<string, string> = {
-    jpg: "image/jpeg",
-    jpeg: "image/jpeg",
-    png: "image/png",
-    webp: "image/webp",
-  };
-  const type = extension ? typeByExtension[extension] : undefined;
-  if (
-    !type ||
-    !responseType ||
-    (responseType !== type && responseType !== "application/octet-stream")
-  )
-    throw new ImageUploadError("O link não aponta para uma imagem compatível.");
-  const contentLength = Number(response.headers.get("content-length"));
-  if (contentLength > MAX_IMAGE_BYTES)
-    throw new ImageUploadError("Cada imagem deve ter até 5 MB.");
-  if (!response.body)
-    throw new ImageUploadError("O link não retornou os dados da imagem.");
-
-  const reader = response.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let size = 0;
-  try {
-    while (true) {
-      const { done, value: chunk } = await reader.read();
-      if (done) break;
-      size += chunk.byteLength;
-      if (size > MAX_IMAGE_BYTES) {
-        await reader.cancel();
-        throw new ImageUploadError("Cada imagem deve ter até 5 MB.");
-      }
-      chunks.push(chunk);
+    let response: Awaited<ReturnType<typeof fetch>>;
+    try {
+      const options: NonNullable<Parameters<typeof fetch>[1]> = {
+        dispatcher,
+        headers: { accept: "image/jpeg,image/png,image/webp" },
+        redirect: "error",
+        signal: AbortSignal.timeout(10_000),
+      };
+      response = await fetch(url, options);
+    } catch {
+      throw new ImageUploadError(
+        "Não foi possível baixar a imagem desse link.",
+      );
     }
-  } catch (error) {
-    if (error instanceof ImageUploadError) throw error;
-    throw new ImageUploadError("Não foi possível baixar a imagem desse link.");
-  } finally {
-    reader.releaseLock();
-  }
+    if (!response.ok)
+      throw new ImageUploadError("O link da imagem não está disponível.");
 
-  return new File([Buffer.concat(chunks)], "imagem-publica", { type });
+    const responseType = response.headers
+      .get("content-type")
+      ?.split(";")[0]
+      .trim()
+      .toLowerCase();
+    if (
+      !responseType ||
+      ![
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "application/octet-stream",
+      ].includes(responseType)
+    )
+      throw new ImageUploadError(
+        "O link não aponta para uma imagem compatível.",
+      );
+    const contentLength = Number(response.headers.get("content-length"));
+    if (contentLength > MAX_IMAGE_BYTES)
+      throw new ImageUploadError("Cada imagem deve ter até 5 MB.");
+    if (!response.body)
+      throw new ImageUploadError("O link não retornou os dados da imagem.");
+
+    const reader = response.body.getReader();
+    const chunks: Uint8Array[] = [];
+    let size = 0;
+    try {
+      while (true) {
+        const { done, value: chunk } = await reader.read();
+        if (done) break;
+        size += chunk.byteLength;
+        if (size > MAX_IMAGE_BYTES) {
+          await reader.cancel();
+          throw new ImageUploadError("Cada imagem deve ter até 5 MB.");
+        }
+        chunks.push(chunk);
+      }
+    } catch (error) {
+      if (error instanceof ImageUploadError) throw error;
+      throw new ImageUploadError(
+        "Não foi possível baixar a imagem desse link.",
+      );
+    } finally {
+      reader.releaseLock();
+    }
+
+    const buffer = Buffer.concat(chunks);
+    let format: string | undefined;
+    try {
+      format = (
+        await sharp(buffer, {
+          limitInputPixels: 32_000_000,
+          failOn: "error",
+        }).metadata()
+      ).format;
+    } catch {
+      throw new ImageUploadError(
+        "O link não aponta para uma imagem compatível.",
+      );
+    }
+    const formats: Record<string, string> = {
+      jpeg: "image/jpeg",
+      png: "image/png",
+      webp: "image/webp",
+    };
+    const type = format ? formats[format] : undefined;
+    if (!type) throw new ImageUploadError("Use imagens JPEG, PNG ou WebP.");
+    return new File([buffer], "imagem-publica", { type });
+  } finally {
+    await dispatcher.destroy();
+  }
 }
 
 export async function prepareImage(file: UploadFile) {

@@ -257,10 +257,12 @@ sem adicionar chaves ao `.env.example`. Uploads aceitam JPEG, PNG e WebP, até 5
 por arquivo, 5 arquivos por envio e 20 imagens por lote. `sharp` valida o conteúdo,
 limita dimensões, reencoda para WebP e remove metadados. Fotos de rascunhos são
 privadas; as públicas exigem lote e edital publicados e categoria ativa.
-Na edição do lote, também é possível importar uma imagem por URL direta do
-storage público Serpro. O servidor só aceita HTTPS no host permitido e no
-caminho de arquivos de imagem, não segue redirecionamentos, limita o download a
-5 MB e aplica o mesmo processamento e storage privado dos uploads locais.
+Na edição do lote, também é possível importar uma imagem por URL HTTPS direta
+de sites públicos, incluindo links sem extensão. O servidor bloqueia endereços
+locais/privados inclusive na resolução DNS da conexão, não segue redirecionamentos,
+limita o download a 5 MB e aplica o mesmo processamento e storage dos uploads.
+Fotos ilustrativas devem ser identificadas como tal na descrição da imagem;
+não devem ser apresentadas como fotos reais do lote.
 
 No cadastro de um novo edital, o botão `Ler dados copiados` tenta preencher
 número, unidade, URL oficial, órgão, situação da fonte e datas a partir do texto

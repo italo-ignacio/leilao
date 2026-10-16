@@ -1,13 +1,64 @@
 import { describe, expect, it, vi } from "vitest";
 import { Prisma } from "../generated/prisma/client";
 
-const { findFirst } = vi.hoisted(() => ({ findFirst: vi.fn() }));
+const { findFirst, findMany, count } = vi.hoisted(() => ({
+  findFirst: vi.fn(),
+  findMany: vi.fn(),
+  count: vi.fn(),
+}));
 vi.mock("server-only", () => ({}));
-vi.mock("./prisma", () => ({ prisma: { lot: { findFirst } } }));
+vi.mock("./prisma", () => ({
+  prisma: { lot: { findFirst, findMany, count }, auction: { count } },
+}));
 
-import { findPublicLotBySlug } from "./catalog";
+import { findPublicHomeHighlights, findPublicLotBySlug } from "./catalog";
 
 describe("public catalog boundary", () => {
+  it("includes ordered merchandise with decimal quantities in every home section", async () => {
+    count.mockResolvedValue(1);
+    findMany.mockResolvedValue([
+      {
+        minimumBid: new Prisma.Decimal("950.00"),
+        statusOverride: null,
+        auction: {
+          proposalStartsAt: null,
+          proposalEndsAt: null,
+          statusOverride: null,
+        },
+        items: [
+          {
+            position: 0,
+            quantity: new Prisma.Decimal("0.125"),
+            unit: "kg",
+            description: "Mercadoria do destaque",
+          },
+        ],
+      },
+    ]);
+    const home = await findPublicHomeHighlights();
+    for (const lots of [home.open, home.closingSoon, home.latest]) {
+      expect(lots[0].items).toEqual([
+        {
+          position: 0,
+          quantity: "0.125",
+          unit: "kg",
+          description: "Mercadoria do destaque",
+        },
+      ]);
+    }
+    for (const [query] of findMany.mock.calls) {
+      expect(query.select.items).toEqual({
+        orderBy: { position: "asc" },
+        select: {
+          position: true,
+          quantity: true,
+          unit: true,
+          description: true,
+        },
+      });
+    }
+  });
+
   it("does not query invalid slugs", async () => {
     expect(await findPublicLotBySlug("../admin")).toBeNull();
     expect(findFirst).not.toHaveBeenCalled();

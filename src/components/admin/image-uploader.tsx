@@ -149,14 +149,14 @@ export function ImageUploader({
       >
         <div className="min-w-0 flex-1 space-y-2">
           <label htmlFor="image-url" className="block text-sm font-medium">
-            Adicionar imagem por link do portal Serpro
+            Adicionar imagem por link
           </label>
           <input
             id="image-url"
             type="url"
             value={imageUrl}
             maxLength={2048}
-            placeholder="https://storagegw.estaleiro.serpro.gov.br/..."
+            placeholder="https://exemplo.com/imagem.jpg"
             className={inputClass}
             disabled={busy || images.length >= 20}
             required

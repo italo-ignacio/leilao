@@ -239,6 +239,29 @@ test("admin curates categories, auctions, lots and a private image gallery", asy
     .click();
   await expect(merchandiseDialog).toHaveCount(0);
 
+  await page.goto("/");
+  const homeLotCard = page
+    .getByRole("region", { name: "Adicionados recentemente", exact: true })
+    .getByRole("article")
+    .filter({
+      has: page.getByRole("heading", {
+        name: `${lotTitle} Editado`,
+        exact: true,
+      }),
+    });
+  await homeLotCard
+    .getByRole("button", { name: "Ver 2 mercadorias do lote 1", exact: true })
+    .click();
+  await expect(
+    homeLotCard
+      .getByRole("dialog")
+      .getByText("Console de teste", { exact: true }),
+  ).toBeVisible();
+  await homeLotCard
+    .getByRole("button", { name: "Fechar mercadorias", exact: true })
+    .click();
+  await expect(homeLotCard.getByRole("dialog")).toHaveCount(0);
+
   await page.goto(`/admin/lotes/${lotId}`);
   await page.getByLabel("Publicação", { exact: true }).selectOption("DRAFT");
   await page.getByRole("button", { name: "Salvar", exact: true }).click();
@@ -291,14 +314,14 @@ test("admin curates categories, auctions, lots and a private image gallery", asy
   const gallery = page.locator('section[aria-labelledby="images-title"]');
   await expect(gallery.getByRole("img")).toHaveCount(2);
   await page
-    .getByLabel("Adicionar imagem por link do portal Serpro", { exact: true })
-    .fill("https://example.test/image.jpg");
+    .getByLabel("Adicionar imagem por link", { exact: true })
+    .fill("https://127.0.0.1/image.jpg");
   await page
     .getByRole("button", { name: "Importar imagem", exact: true })
     .click();
   await expect(
     page.getByRole("alert", { name: "Erro na galeria" }),
-  ).toContainText("link direto de uma imagem pública");
+  ).toContainText("link HTTPS direto de uma imagem em um site público");
   const imagePath = await gallery.getByRole("img").first().getAttribute("src");
   expect(imagePath).toBeTruthy();
   const authenticatedImage = await page.request.get(imagePath!);

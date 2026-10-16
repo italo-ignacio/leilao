@@ -231,19 +231,19 @@ export async function findPublicHomeHighlights(now = new Date()) {
     }),
     prisma.lot.findMany({
       where: openWhere,
-      select: publicLotCardSelect,
+      select: publicLotListSelect,
       orderBy: publicLotOrderBy("encerrando"),
       take: 4,
     }),
     prisma.lot.findMany({
       where: endingSoonWhere,
-      select: publicLotCardSelect,
+      select: publicLotListSelect,
       orderBy: publicLotOrderBy("encerrando"),
       take: 4,
     }),
     prisma.lot.findMany({
       where: latestWhere,
-      select: publicLotCardSelect,
+      select: publicLotListSelect,
       orderBy: publicLotOrderBy("recentes"),
       take: 6,
     }),
@@ -253,9 +253,9 @@ export async function findPublicHomeHighlights(now = new Date()) {
     openAuctionCount,
     closingSoonCount,
     publishedCount,
-    open: open.map((lot) => serializePublicLotCard(lot, now)),
-    closingSoon: closingSoon.map((lot) => serializePublicLotCard(lot, now)),
-    latest: latest.map((lot) => serializePublicLotCard(lot, now)),
+    open: open.map((lot) => serializePublicLotListItem(lot, now)),
+    closingSoon: closingSoon.map((lot) => serializePublicLotListItem(lot, now)),
+    latest: latest.map((lot) => serializePublicLotListItem(lot, now)),
   };
 }
 

@@ -3,16 +3,56 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import sharp from "sharp";
+import * as undici from "undici";
+import { Response } from "undici";
 import { describe, expect, it, vi } from "vitest";
 import {
   downloadPublicLotImage,
+  lookupPublicImageAddress,
   MAX_IMAGE_BYTES,
   prepareImage,
   publicLotImageUrlSchema,
 } from "./image-uploads";
 import { LocalImageStorage, storageKeySchema } from "./storage";
 
+const { dnsLookup } = vi.hoisted(() => ({ dnsLookup: vi.fn() }));
+vi.mock("node:dns", () => ({ lookup: dnsLookup }));
+vi.mock("undici", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("undici")>();
+  return { ...actual, fetch: vi.fn() };
+});
+
 describe("image uploads", () => {
+  it("blocks hostnames resolving to private addresses at connection time", async () => {
+    dnsLookup.mockImplementation((_hostname, _options, callback) => {
+      callback(null, [{ address: "127.0.0.1", family: 4 }]);
+    });
+    await expect(
+      new Promise<void>((resolve, reject) => {
+        lookupPublicImageAddress("images.example.com", {}, (error) => {
+          if (error) reject(error);
+          else resolve();
+        });
+      }),
+    ).rejects.toThrow("Endereço de rede não permitido.");
+    expect(dnsLookup).toHaveBeenCalled();
+  });
+
+  it("rejects forged bytes even when served as a binary download", async () => {
+    const fetchMock = vi.mocked(undici.fetch).mockResolvedValue(
+      new Response("<html>not an image</html>", {
+        headers: { "content-type": "application/octet-stream" },
+      }),
+    );
+    try {
+      await expect(
+        downloadPublicLotImage("https://images.example.com/photo.jpg"),
+      ).rejects.toThrow(/imagem compatível/);
+    } finally {
+      fetchMock.mockRestore();
+    }
+  });
+
   it("validates bytes, reencodes WebP and reads through the storage abstraction", async () => {
     const image = await sharp({
       create: { width: 8, height: 6, channels: 3, background: "#12735a" },
@@ -62,7 +102,7 @@ describe("image uploads", () => {
       }),
     ).rejects.toThrow(/5 MB/);
   });
-  it("accepts only public Serpro lot image URLs", () => {
+  it("accepts HTTPS image links from public sites, including URLs without extensions", () => {
     expect(
       publicLotImageUrlSchema.safeParse(
         "https://storagegw.estaleiro.serpro.gov.br/sle-pro-publico/arquivos/images/2026/1000100/5/foto_1000100_2026_5_7_550321_913c5fd8aafc5623b18d5ded7ed87a30.jpg",
@@ -73,29 +113,38 @@ describe("image uploads", () => {
         "https://storagegw.estaleiro.serpro.gov.br/sle-pro-publico/arquivos/images/2026/1000100/5/foto.jpg",
       ).success,
     ).toBe(true);
+    expect(
+      publicLotImageUrlSchema.safeParse(
+        "https://images.example.com/photo?id=123",
+      ).success,
+    ).toBe(true);
     for (const url of [
       "http://storagegw.estaleiro.serpro.gov.br/sle-pro-publico/arquivos/images/2026/1000100/5/foto.jpg",
-      "https://example.test/sle-pro-publico/arquivos/images/2026/1000100/5/foto.jpg",
-      "https://storagegw.estaleiro.serpro.gov.br/sle-pro-publico/arquivos/images/2026/1000100/5/foto.svg",
-      "https://storagegw.estaleiro.serpro.gov.br/sle-pro-publico/arquivos/images/2026/1000100/5/foto.jpg?next=https://example.test",
+      "https://localhost/image.jpg",
+      "https://127.0.0.1/image.jpg",
+      "https://10.0.0.1/image.jpg",
+      "https://169.254.169.254/image.jpg",
+      "https://[::1]/image.jpg",
+      "https://[::ffff:127.0.0.1]/image.jpg",
+      "https://user:password@example.com/image.jpg",
     ]) {
       expect(publicLotImageUrlSchema.safeParse(url).success).toBe(false);
     }
   });
-  it("downloads the allowlisted image and sends it through image validation", async () => {
+  it("downloads an external image without an extension and validates the bytes", async () => {
     const image = await sharp({
       create: { width: 8, height: 6, channels: 3, background: "#12735a" },
     })
       .jpeg()
       .toBuffer();
-    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+    const fetchMock = vi.mocked(undici.fetch).mockResolvedValue(
       new Response(image, {
         headers: { "content-type": "application/octet-stream" },
       }),
     );
     try {
       const file = await downloadPublicLotImage(
-        "https://storagegw.estaleiro.serpro.gov.br/sle-pro-publico/arquivos/images/2026/1000100/5/foto.jpg",
+        "https://images.example.com/photo?id=123",
       );
       expect(fetchMock).toHaveBeenCalledWith(
         expect.any(URL),
@@ -108,7 +157,7 @@ describe("image uploads", () => {
     }
   });
   it("rejects remote responses that are not image content", async () => {
-    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+    const fetchMock = vi.mocked(undici.fetch).mockResolvedValue(
       new Response("not an image", {
         headers: { "content-type": "text/html" },
       }),
