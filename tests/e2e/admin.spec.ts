@@ -264,12 +264,30 @@ test("admin curates categories, auctions, lots and a private image gallery", asy
 
   await page.goto(`/admin/lotes/${lotId}`);
   await page.getByLabel("Publicação", { exact: true }).selectOption("DRAFT");
+  const publishedLotVersion = await page
+    .locator('input[name="version"]')
+    .inputValue();
   await page.getByRole("button", { name: "Salvar", exact: true }).click();
-  await expect(page.getByText("Lote salvo.", { exact: true })).toBeVisible();
+  await expect(page.locator('input[name="version"]')).not.toHaveValue(
+    publishedLotVersion,
+  );
+  await page.reload();
+  await expect(page.getByLabel("Publicação", { exact: true })).toHaveValue(
+    "DRAFT",
+  );
   await page.goto(`/admin/leiloes/${auctionId}`);
   await page.getByLabel("Publicação", { exact: true }).selectOption("DRAFT");
+  const publishedAuctionVersion = await page
+    .locator('input[name="version"]')
+    .inputValue();
   await page.getByRole("button", { name: "Salvar", exact: true }).click();
-  await expect(page.getByText("Leilão salvo.", { exact: true })).toBeVisible();
+  await expect(page.locator('input[name="version"]')).not.toHaveValue(
+    publishedAuctionVersion,
+  );
+  await page.reload();
+  await expect(page.getByLabel("Publicação", { exact: true })).toHaveValue(
+    "DRAFT",
+  );
   await page.goto(`/admin/lotes/${lotId}`);
 
   const red = await sharp({
