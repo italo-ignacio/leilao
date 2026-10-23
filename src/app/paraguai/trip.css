@@ -1,0 +1,342 @@
+.paraguay-trip {
+  --trip-red: #d73543;
+  --trip-blue: #2456a1;
+  min-height: 100svh;
+  background: #f6f7f9;
+  color: #202329;
+  color-scheme: light;
+  letter-spacing: 0;
+
+  .hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 550px;
+    height: 64svh;
+    max-height: 760px;
+    background: #4d655f;
+    color: white;
+  }
+  .landscape {
+    object-fit: cover;
+    object-position: center 55%;
+    z-index: -2;
+  }
+  .shade {
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 34%);
+    z-index: -1;
+  }
+  .heroContent {
+    width: min(100% - 96px, 1240px);
+    height: 100%;
+    min-height: inherit;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .header,
+  .wordmark,
+  .date,
+  .heroBottom,
+  .heroBottom > span,
+  .footer,
+  .footerDetails,
+  .footerDetails a,
+  .smallDate {
+    display: flex;
+    align-items: center;
+  }
+  .header {
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 30px;
+  }
+  .wordmark {
+    font-size: 16px;
+    font-weight: 600;
+    gap: 12px;
+  }
+  .brandIcon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgb(255 255 255 / 55%);
+    border-radius: 50%;
+  }
+  .year {
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .destination {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 45px 0 32px;
+    text-align: center;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .flagMark {
+    display: block;
+    width: 22px;
+    height: 15px;
+    border-top: 5px solid #e44350;
+    border-bottom: 5px solid #4071c3;
+    background: white;
+  }
+  .destination h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 132px;
+    font-weight: 400;
+    line-height: 1.05;
+    margin-top: 12px;
+  }
+  .period {
+    color: #ff6770;
+  }
+  .subtitle {
+    margin-top: 16px;
+    font-size: 17px;
+    color: #fff;
+  }
+  .date {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    font-size: 12px;
+    margin-top: 30px;
+  }
+  .dateSeparator {
+    opacity: 0.6;
+    margin-inline: 6px;
+  }
+  .heroBottom {
+    justify-content: space-between;
+    gap: 16px;
+    padding-block: 22px;
+    font-size: 10px;
+    color: #fff;
+    border-top: 1px solid rgb(255 255 255 / 35%);
+  }
+  .heroBottom > span {
+    gap: 6px;
+  }
+  .content {
+    width: min(100% - 96px, 1240px);
+    margin-inline: auto;
+  }
+  .departure {
+    display: grid;
+    grid-template-columns: 1fr 1.75fr;
+    align-items: center;
+    gap: 64px;
+    padding-block: 44px;
+  }
+  .departureHeading {
+    border-left: 3px solid var(--trip-red);
+    padding-left: 20px;
+  }
+  .departureHeading .eyebrow {
+    color: #757983;
+  }
+  .departureHeading p {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 32px;
+    line-height: 1.25;
+    margin-top: 12px;
+  }
+  .smallDate {
+    gap: 10px;
+    font-size: 11px;
+    color: var(--trip-blue);
+    margin-top: 16px;
+    font-weight: 700;
+  }
+  .countdown {
+    min-width: 0;
+  }
+  .countdownTitle {
+    color: #696e78;
+    font-size: 11px;
+    min-height: 18px;
+  }
+  .timer {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+  }
+  .unit {
+    min-width: 0;
+    text-align: center;
+  }
+  .value {
+    display: grid;
+    place-items: center;
+    position: relative;
+    height: 100px;
+    background: white;
+    border: 1px solid #e1e4e9;
+    border-radius: 6px;
+    box-shadow: 0 3px 0 #e4e6eb;
+    font-size: 62px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .value::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: 1px;
+    background: rgb(220 224 230 / 45%);
+  }
+  .unit:first-child .value {
+    color: var(--trip-red);
+  }
+  .label {
+    display: block;
+    font-size: 10px;
+    color: #696e78;
+    margin-top: 12px;
+  }
+  .note {
+    font-size: 11px;
+    color: #696e78;
+    margin-top: 18px;
+  }
+  .footer {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 10px;
+    color: #696e78;
+    border-top: 1px solid #e0e3e8;
+    padding-block: 20px;
+  }
+  .footerDetails {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footerDetails a {
+    gap: 4px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 900px) {
+    .heroContent,
+    .content {
+      width: calc(100% - 48px);
+    }
+    .departure {
+      gap: 28px;
+      grid-template-columns: 1fr 2fr;
+    }
+    .value {
+      font-size: 48px;
+      height: 85px;
+    }
+    .timer {
+      gap: 10px;
+    }
+    .departureHeading p {
+      font-size: 27px;
+    }
+  }
+  @media (max-width: 600px) {
+    .hero {
+      min-height: 440px;
+      height: 58svh;
+    }
+    .heroContent,
+    .content {
+      width: calc(100% - 40px);
+    }
+    .header {
+      padding-top: 22px;
+    }
+    .wordmark {
+      font-size: 14px;
+      gap: 8px;
+    }
+    .year {
+      display: none;
+    }
+    .destination {
+      padding-block: 32px;
+    }
+    .destination h1 {
+      font-size: 72px;
+    }
+    .subtitle {
+      font-size: 14px;
+      max-width: 260px;
+      line-height: 1.6;
+    }
+    .date {
+      font-size: 10px;
+      gap: 7px;
+      margin-top: 22px;
+    }
+    .dateSeparator {
+      margin-inline: 0;
+    }
+    .heroBottom {
+      padding-block: 18px;
+      font-size: 9px;
+    }
+    .departure {
+      grid-template-columns: 1fr;
+      gap: 26px;
+      padding-block: 32px;
+    }
+    .departureHeading p {
+      font-size: 26px;
+    }
+    .departureHeading p br {
+      display: none;
+    }
+    .smallDate {
+      display: none;
+    }
+    .value {
+      height: 78px;
+      font-size: 42px;
+    }
+    .footer {
+      align-items: flex-start;
+      flex-direction: column;
+      padding-block: 18px;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .destination {
+      animation: trip-appear 800ms ease-out both;
+    }
+    .countdown {
+      animation: trip-appear 800ms 150ms ease-out both;
+    }
+  }
+}
+
+@keyframes trip-appear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
